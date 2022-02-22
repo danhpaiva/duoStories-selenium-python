@@ -6,7 +6,7 @@ import time
 
 # Credentials
 user = 'danhpaiva'
-password = 'zzz'
+password = 'YouPassword'
 driver = webdriver.Chrome(executable_path='.\chromedriver.exe')
 
 
