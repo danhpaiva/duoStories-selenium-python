@@ -1,28 +1,40 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 import time
 
-# Welcome #
-
-# Credentials
+# Welcome ~ danhpaiva #
+# ENV's
+urlDuo = 'https://www.duolingo.com/'
 user = 'danhpaiva'
 password = 'YouPassword'
-driver = webdriver.Chrome(executable_path='.\chromedriver.exe')
+pathSystem = '.\edgedriver_win64\msedgedriver.exe'
+
+driver = webdriver.Edge(pathSystem)
+
+
+def clear():
+    try:
+        import os
+        lines = os.get_terminal_size().lines
+    except AttributeError:
+        lines = 130
+    print("\n" * lines)
 
 
 def AcessSite(driver):
-    driver.get('https://www.duolingo.com/')
-    buttonFirstPage = driver.find_element_by_xpath(
-        '//*[@id="root"]/div/div/span[1]/div/div[1]/div[2]/div[2]/button/span')
+    driver.get(urlDuo)
+    buttonFirstPage = driver.find_element(
+        By.XPATH, '//*[@id="root"]/div/div/div[2]/div[1]/div[2]/div[2]/button/span')
     buttonFirstPage.click()
-    time.sleep(2)
+    time.sleep(3)
 
 
 def InsertCredentials(user, password):
-    Login = driver.find_element_by_xpath(
-        '//*[@id="overlays"]/div[5]/div/div/form/div[1]/div[1]/div[1]/label/div/input')
+    Login = driver.find_element(
+        By.XPATH, '//*[@id="overlays"]/div[4]/div/div[2]/form/div[1]/div[1]/div[1]/label/div/input')
     Login.send_keys(user + Keys.TAB + password + Keys.ENTER)
-    time.sleep(3)
+    time.sleep(5)
 
 
 def AccessStories(driver):
