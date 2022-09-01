@@ -1,3 +1,5 @@
+from ast import Div
+from distutils.spawn import spawn
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -10,7 +12,7 @@ import time
 urlDuo = 'https://www.duolingo.com/'
 urlExercise = 'https://www.duolingo.com/stories/en-pt-good-morning?mode=read'
 user = 'danhpaiva'
-password = ''
+password = 'ZZZ'
 pathSystem = '.\edgedriver_win64\msedgedriver.exe'
 
 driver = webdriver.Edge(pathSystem)
@@ -27,17 +29,17 @@ def clear():
 
 def AcessSite(driver):
     driver.get(urlDuo)
-    try:
-        buttonFirstPage = WebDriverWait(driver, 10).until(EC.presence_of_element_located((
-            By.XPATH, '//*[@id="root"]/div/div/div[2]/div[1]/div[2]/div[2]/button/span')))
-    finally:
-        buttonFirstPage.click()
+    buttonFirstPage = driver.find_element(
+        By.XPATH, '//*[@id="root"]/div/div/div[2]/div[1]/div[2]/div[2]/button/span')
+    buttonFirstPage.click()
+    time.sleep(2)
 
 
 def InsertCredentials(user, password):
     Login = driver.find_element(
         By.XPATH, '//*[@id="overlays"]/div[4]/div/div[2]/form/div[1]/div[1]/div[1]/label/div/input')
     Login.send_keys(user + Keys.TAB + password + Keys.ENTER)
+    time.sleep(4)
 
 
 def Confirm(driver):
@@ -78,19 +80,18 @@ def QuestionTwoListening(driver):
 
 
 def QuestionThreeListening(driver):
-    time.sleep(2)
+    time.sleep(3)
     listForAsc = [1, 2, 3]
     for item in listForAsc:
-        for item in listForAsc:
-            nextLetter = driver.find_element(
-                By.XPATH,
-                f'/html/body/div[1]/div/div/div/div/div[1]/div[1]/div[18]/div/ul/li[{item}]/button').click()
-            time.sleep(0.75)
+        nextLetter = driver.find_element(
+            By.XPATH,
+            f'/html/body/div[1]/div/div/div/div/div[1]/div[1]/div[18]/div/ul/li[{item}]/button').click()
+        time.sleep(0.8)
 
 
 def MakeExercise(driver):
     driver.get('https://www.duolingo.com/stories/en-pt-good-morning?mode=read')
-    time.sleep(3.3)
+    time.sleep(4)
     startLesson = driver.find_element(
         By.XPATH,
         '/html/body/div[1]/div/div/div/div/div/div[3]/button')
@@ -119,13 +120,17 @@ def MakeExercise(driver):
 
     Confirm(driver)
     QuestionThreeListening(driver)
+    time.sleep(2)
 
-    listFive = [1, 2, 3, 4, 5, 6, 7]
-    for item in listFive:
+    listSeven = [1, 2, 3, 4, 5, 6, 7]
+    for item in listSeven:
         Confirm(driver)
         print(item)
+    time.sleep(3)
+    Confirm(driver)
 
 
 AcessSite(driver)
 InsertCredentials(user, password)
+clear()
 MakeExercise(driver)
